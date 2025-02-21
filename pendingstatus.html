@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Requests</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 30px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #573D1C;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #573D1C;
+            color: white;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button.deny {
+            background-color: #f44336;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Pending Burial Requests</h2>
+        <table id="requests-table">
+            <thead>
+                <tr>
+                    <th>NGO Name</th>
+                    <th>Contact Person</th>
+                    <th>Deceased Person</th>
+                    <th>Age</th>
+                    <th>Cause of Death</th>
+                    <th>Status</th>
+                    <th>Approve</th>
+                    <th>Deny</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Pending requests will be dynamically loaded here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Fetch pending requests from the server
+        function fetchRequests() {
+            fetch('http://localhost:3000/pending-requests')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.querySelector('#requests-table tbody');
+                    tableBody.innerHTML = ''; // Clear existing table data
+
+                    data.forEach(request => {
+                        const row = document.createElement('tr');
+                        row.dataset.id = request.id; // Add request ID to the row for reference
+                        row.innerHTML = `
+                            <td>${request.ngo_name}</td>
+                            <td>${request.contact_person}</td>
+                            <td>${request.deceased_person}</td>
+                            <td>${request.deceased_person_age}</td>
+                            <td>${request.cause_of_death}</td>
+                            <td class="status">${request.status}</td>
+                            <td><button onclick="approveRequest(${request.id})" ${request.status === 'approved' ? 'disabled' : ''}>Approve</button></td>
+                            <td><button class="deny" onclick="denyRequest(${request.id})" ${request.status === 'denied' ? 'disabled' : ''}>Deny</button></td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(err => {
+                    console.error('Error fetching pending requests:', err);
+                });
+        }
+
+        // Approve a request
+        function approveRequest(id) {
+            fetch('http://localhost:3000/approve-request', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id, status: 'approved' }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Find the row and update the status dynamically
+                const row = document.querySelector(`tr[data-id="${id}"]`);
+                row.querySelector('.status').textContent = 'Approved';
+                row.querySelector('button').disabled = true; // Disable approve button after approval
+                row.querySelector('.deny').disabled = true; // Disable deny button after approval
+                alert('Request approved');
+            })
+            .catch(err => {
+                console.error('Error approving request:', err);
+            });
+        }
+
+        // Deny a request
+        function denyRequest(id) {
+            fetch('http://localhost:3000/deny-request', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id, status: 'denied' }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Find the row and update the status dynamically
+                const row = document.querySelector(`tr[data-id="${id}"]`);
+                row.querySelector('.status').textContent = 'Denied';
+                row.querySelector('button').disabled = true; // Disable approve button after denial
+                row.querySelector('.deny').disabled = true; // Disable deny button after denial
+                alert('Request denied');
+            })
+            .catch(err => {
+                console.error('Error denying request:', err);
+            });
+        }
+
+        // Fetch requests when the page loads
+        document.addEventListener('DOMContentLoaded', fetchRequests);
+    </script>
+</body>
+</html>

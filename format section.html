@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unclaimed Bodies Features Section</title>
+    <!-- Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Stylesheet -->
+    <style>
+    * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .row h1 {
+    width: 100%;
+    text-align: center;
+    font-size: 3.75em;
+    margin: 0.6em 0;
+    font-weight: 600;
+    color: #070024;
+  }
+  .column {
+    padding: 1em;
+  }
+  .card {
+    padding: 3.1em 1.25em;
+    text-align: center;
+    background: linear-gradient(0deg,rgb(171, 132, 49) 10px, transparent 10px);
+    background-repeat: no-repeat;
+    background-position: 0 0.62em;
+    box-shadow: 0 0 2.5em rgba(0, 0, 0, 0.15);
+    border-radius: 0.5em;
+    transition: 0.5s;
+    cursor: pointer;
+  }
+  .card .icon {
+    font-size: 2.5em;
+    height: 2em;
+    width: 2em;
+    margin: auto;
+    background-color: rgb(171, 132, 49);
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: #ffffff;
+  }
+  .icon:before {
+    position: absolute;
+    content: "";
+    height: 1.5em;
+    width: 1.5em;
+    border: 0.12em solid rgb(88, 69, 30);
+    border-radius: 50%;
+    transition: 0.5s;
+  }
+  .card h3 {
+    font-size: 1.3em;
+    margin: 1em 0 1.4em 0;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: #070024;
+  }
+  .card p {
+    line-height: 2em;
+    color: #0b0b0b;
+  
+  }
+  .card:hover {
+    background-position: 0;
+  }
+  .card:hover .icon:before {
+    height: 2.25em;
+    width: 2.25em;
+  }
+  @media screen and (min-width: 768px) {
+    section {
+      padding: 1em 7em;
+    }
+  }
+  @media screen and (min-width: 992px) {
+    section {
+      padding: 1em;
+    }
+    .card {
+      padding: 5em 2em;
+    }
+    .column {
+      flex: 0 0 20%;
+      max-width: 20%;
+      padding: 0 1em;
+    }
+  }
+    </style>
+  </head>
+  <body>
+    <section>
+      <div class="row">
+        <!-- Feature 1: Search Unclaimed Bodies -->
+        <div class="column">
+          <div class="card">
+            <div class="icon">
+              <i class="fa-solid fa-search"></i>
+            </div>
+            <h3>Search Unclaimed Bodies</h3>
+            <!-- <p>Find unclaimed bodies by searching our records.</p> -->
+          </div>
+        </div>
+        <!-- Feature 2: Volunteer Sign Up -->
+        <div class="column">
+          <div class="card">
+            <div class="icon">
+              <i class="fa-solid fa-hands-helping"></i>
+            </div>
+            <h3>Volunteer Sign Up<br><br></h3>
+            <!-- <p>Join us as a volunteer to help in burial processes.</p> -->
+          </div>
+        </div>
+        <!-- Feature 3: Donate -->
+        <div class="column">
+          <div class="card">
+            <div class="icon">
+              <i class="fa-solid fa-donate"></i>
+            </div>
+            <h3>Donate here <br><br></h3>
+            <!-- <p>Contribute to help us provide proper burials.</p> -->
+          </div>
+        </div>
+        <!-- Feature 4: NGO Body Burial Form -->
+        <div class="column">
+          <div class="card">
+            <div class="icon">
+              <i class="fa-solid fa-file-signature"></i>
+            </div>
+            <h3>NGO Body Burial Form<br></h3>
+            <!-- <p>Submit forms</p> -->
+          </div>
+        </div>
+        <!-- Feature 5: Pending Approval Requests Status -->
+        <div class="column">
+          <div class="card">
+            <div class="icon">
+              <i class="fa-solid fa-hourglass-half"></i>
+            </div>
+            <h3>Pending Approval Status</h3>
+            <!-- <p>Check the status</p> -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

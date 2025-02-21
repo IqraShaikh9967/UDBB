@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unclaimed Bodies Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        select, button {
+            padding: 10px;
+            font-size: 14px;
+            margin-left: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: orange;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+        }
+
+        button:hover {
+            background-color: darkorange;
+        }
+
+        table {
+            width: 60%;
+            margin: auto;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="search-container">
+        <label for="citySelect">Select City:</label>
+        <select id="citySelect">
+            <option value="">-- Select a City --</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Kolkata">Kolkata</option>
+            <option value="Chennai">Chennai</option>
+        </select>
+        <button id="searchButton">Search</button>
+    </div>
+
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>City</th>
+                <th>Date Found</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>John Doe</td>
+                <td>45</td>
+                <td>Mumbai</td>
+                <td>2024-06-15</td>
+            </tr>
+            <tr>
+                <td>Jane Smith</td>
+                <td>50</td>
+                <td>Delhi</td>
+                <td>2024-06-20</td>
+            </tr>
+            <tr>
+                <td>Rahul Sharma</td>
+                <td>38</td>
+                <td>Kolkata</td>
+                <td>2024-06-10</td>
+            </tr>
+            <tr>
+                <td>Priya Nair</td>
+                <td>41</td>
+                <td>Chennai</td>
+                <td>2024-06-12</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        document.getElementById('searchButton').addEventListener('click', function () {
+            const selectedCity = document.getElementById('citySelect').value.toLowerCase();
+            const rows = document.querySelectorAll('#dataTable tbody tr');
+
+            rows.forEach(row => {
+                const city = row.cells[2].textContent.toLowerCase();
+                row.style.display = (selectedCity === "" || city === selectedCity) ? "" : "none";
+            });
+        });
+    </script>
+
+</body>
+</html>

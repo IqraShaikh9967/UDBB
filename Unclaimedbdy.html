@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>unclaimed body search</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+    /* Global Styles */
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background-color: rgb(238, 233, 222);
+    }
+
+    .container {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 1200px;
+        margin: 1rem auto;
+        padding: 1rem;
+        box-sizing: border-box;
+        overflow-x: auto;
+    }
+
+    .search-bar {
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 0.5rem;
+        background-color: #fff;
+    }
+
+    .search-bar input {
+        border: none;
+        outline: none;
+        flex: 1;
+        padding: 0.5rem;
+        font-size: 1rem;
+    }
+
+    .search-bar .icon {
+        margin-right: 0.5rem;
+        color: #555;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table th, table td {
+        text-align: left;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        font-size: 0.9rem;
+    }
+
+    table th {
+        background-color: rgb(88, 69, 30);
+        color: #fff;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    /* Enlarging image size */
+    table img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .container {
+            padding: 0.5rem;
+        }
+
+        .search-bar input {
+            font-size: 0.9rem;
+        }
+
+        table th, table td {
+            padding: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        table img {
+            width: 80px;
+            height: 80px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        table, thead, tbody, th, td, tr {
+            display: block;
+            width: 100%;
+        }
+
+        table thead {
+            display: none;
+        }
+
+        table tr {
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        table td {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        table td::before {
+            content: attr(data-label);
+            font-weight: 600;
+            color: rgb(88, 69, 30);
+        }
+
+        table img {
+            width: 70px;
+            height: 70px;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="search-bar">
+            <i class="fa fa-search icon"></i>
+            <input type="text" id="searchInput" placeholder="Search by City..." onkeyup="filterData()">
+        </div>
+        <table id="dataList">
+            <thead>
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>Image</th>
+                    <th>Age</th>
+                    <th>Date</th>
+                    <th>Gender</th>
+                    <th>City</th>
+                    <th>Police Station</th>
+                    <th>Case No & law of section</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Sr. No.">1</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/BBSR%20grps%20ud%20case%20no.%2074-24.jpg" alt="Person 1"></td>
+                    <td data-label="Age">35</td>
+                    <td data-label="Date">06/10/2022</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Cuttack</td>
+                    <td data-label="Police Station">Cuttack sadar police station</td>
+                    <td data-label="Case No & law of section">BBSR grps ud case no. 74/24</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">2</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/BERHAMPUR%20GRPS%20UD%20CASE%20NO.01-24.jpg" alt="Person 2"></td>
+                    <td data-label="Age">43</td>
+                    <td data-label="Date">28/09/2022</td>
+                    <td data-label="Gender">Female</td>
+                    <td data-label="City">Nagpur</td>
+                    <td data-label="Police Station">Nagpur Junction(NGP)</td>
+                    <td data-label="Case No & law of section">Berhampur grps ud case no.01</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">3</td>
+                    <td data-label="Image"><img src="https://odishapolicecidcb.gov.in/sites/default/files/Cuttack%20UD%20case%20no.57-24.jpg" alt="Person 2"></td>
+                    <td data-label="Age">22</td>
+                    <td data-label="Date">15/07/2023</td>
+                    <td data-label="Gender">Female</td>
+                    <td data-label="City">kolkata</td>
+                    <td data-label="Police Station">purighat police station</td>
+                    <td data-label="Case No & law of section">Calcutta grps UD case no. 57</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">4</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/Sadar%20Ps%20Case%20No.39.jpeg" alt="Person 2"></td>
+                    <td data-label="Age">new born infant</td>
+                    <td data-label="Date">02/01/2023</td>
+                    <td data-label="Gender">female</td>
+                    <td data-label="City">Angul</td>
+                    <td data-label="Police Station">nalco nagar police station</td>
+                    <td data-label="Case No & law of section">Angul Sadar PS case no.39</td> 
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">5</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/BHUBAN%20%20P.S%20U.D%20CASE%20NO-%2009.jpeg" alt="Person 2"></td>
+                    <td data-label="Age">22</td>
+                    <td data-label="Date">1/05/2024</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Dhenkanal</td>
+                    <td data-label="Police Station">SP office dhenkanal</td>
+                    <td data-label="Case No & law of section">DHENKANAL DISTRICT BHUBAN P.S U.D CASE NO- 09.</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">6</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/Cuttack%20grps%20ud%20case%20no.%2059-24.jpg" alt="Person 2"></td>
+                    <td data-label="Age">34</td>
+                    <td data-label="Date">20/04/2023</td>
+                    <td data-label="Gender">Female</td>
+                    <td data-label="City">Cuttack</td>
+                    <td data-label="Police Station">manglabag police station</td>
+                    <td data-label="Case No & law of section">Bhubaneswar GRPS UD case no. 28</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">7</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/Khurda%20road%20grps%20ud%20case%20no.67-24.jpg" alt="Person 2"></td>
+                    <td data-label="Age">60</td>
+                    <td data-label="Date">05/10/2024</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">bilaspur</td>
+                    <td data-label="Police Station">city kotwali police station bilaspur</td>
+                    <td data-label="Case No & law of section">Khurda road grps ud case no.67</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">8</td>
+                    <td data-label="Image"><img src="https://odishapolicecidcb.gov.in/sites/default/files/Puri%20grps%20ud%20case%20no.%2034-24.jpg" alt="Person 2"></td>
+                    <td data-label="Age">65</td>
+                    <td data-label="Date">04/10/2024</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">shimla</td>
+                    <td data-label="Police Station">sadar thana police station</td>
+                    <td data-label="Case No & law of section">Puri grps ud case no. 34</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">9</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/BBSR%20GRPS%20UD%20CASE%20NO.56-24.jpg" alt="Person 2"></td>
+                    <td data-label="Age">58</td>
+                    <td data-label="Date">29/01/2021</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Guwahati</td>
+                    <td data-label="Police Station">paltan bazar police station guwahati</td>
+                    <td data-label="Case No & law of section">BBASR GRPS UD CASE NO.56/24</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">10</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/Cuttack%20UD%20case%20no.59-23.jpg" alt="Person 2"></td>
+                    <td data-label="Age">50</td>
+                    <td data-label="Date">14/08/2023</td>
+                    <td data-label="Gender">Female</td>
+                    <td data-label="City">Khurda</td>
+                    <td data-label="Police Station">Khordha model police station</td>
+                    <td data-label="Case No & law of section">Cuttack GRPS UD case no. 59</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">11</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/Pallahara%20PS%20Case-206.jpeg" alt="Person 2"></td>
+                    <td data-label="Age">45</td>
+                    <td data-label="Date">24/10/2022</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Akola</td>
+                    <td data-label="Police Station">Civil lines police station</td>
+                    <td data-label="Case No & law of section">Pallahara PS Case No. 206/24</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">12</td>
+                    <td data-label="Image"><img src="https://odishapolicecidcb.gov.in/sites/default/files/Berhampur%20grps%20ud%20case%20no.88-24.jpg" alt="Person 2"></td>
+                    <td data-label="Age">40</td>
+                    <td data-label="Date">01/02/2020</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Konark</td>
+                    <td data-label="Police Station">Konark police station</td>
+                    <td data-label="Case No & law of section">Berhampur grps ud case no. 88/24</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">13</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/Cuttack%20grps%20ud%20case%20no.%2089-24.jpg" alt="Person 2"></td>
+                    <td data-label="Age">42</td>
+                    <td data-label="Date">14/10/2024</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Puri</td>
+                    <td data-label="Police Station">Town police station, puri</td>
+                    <td data-label="Case No & law of section">Cuttack grps ud case no. 89</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">14</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/Balasore%20grps%20ud%20case%20no.%2039-24.jpg" alt="Person 2"></td>
+                    <td data-label="Age">60</td>
+                    <td data-label="Date">24/05/2024</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Balasore</td>
+                    <td data-label="Police Station">police head office balasore</td>
+                    <td data-label="Case No & law of section">Balasore grps ud case no.39</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">15</td>
+                    <td data-label="Image"><img src="https://odishapolicecidcb.gov.in/sites/default/files/KPT%28S%29%203-2017_0.jpg" alt="Person 2"></td>
+                    <td data-label="Age">45</td>
+                    <td data-label="Date">04/10/2024</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Brahmagiri</td>
+                    <td data-label="Police Station">Brahmagiri police station</td>
+                    <td data-label="Case No & law of section">Brahma grps ud case no.89/24</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">16</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/KKG%20UD%205.jpg" alt="Person 2"></td>
+                    <td data-label="Age">65</td>
+                    <td data-label="Date">26/07/2017</td>
+                    <td data-label="Gender">Female</td>
+                    <td data-label="City">Koraput</td>
+                    <td data-label="Police Station">damanjodi police station</td>
+                    <td data-label="Case No & law of section">KAKIRIGUMA PS U.D.CASE NO.05</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">17</td>
+                    <td data-label="Image"><img src="https://odishapolicecidcb.gov.in/sites/default/files/JYPS%20%28T%29%20U.D.%20NO.05-2017.jpg" alt="Person 2"></td>
+                    <td data-label="Age">51</td>
+                    <td data-label="Date">09/03/2017</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Jagdalpur</td>
+                    <td data-label="Police Station">jeypore police outpost</td>
+                    <td data-label="Case No & law of section">JEYPORE TOWN PS U.D. CASE NO.05</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">18</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/BGM%20PS%20CASE%20NO.82%20DTD.117%20001.jpg" alt="Person 2"></td>
+                    <td data-label="Age">25</td>
+                    <td data-label="Date">11/07/2017</td>
+                    <td data-label="Gender">Female</td>
+                    <td data-label="City">Rourkela</td>
+                    <td data-label="Police Station">Uditnagar police station</td>
+                    <td data-label="Case No & law of section">Boriguma PS case No.82</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">19</td>
+                    <td data-label="Image"><img src="https://odishapolicecidcb.gov.in/sites/default/files/JYP%28S%29-15-2016%20001.jpg" alt="Person 2"></td>
+                    <td data-label="Age">20</td>
+                    <td data-label="Date">12/10/2016</td>
+                    <td data-label="Gender">Female</td>
+                    <td data-label="City">Araku valley</td>
+                    <td data-label="Police Station">jeypore sadar police station</td>
+                    <td data-label="Case No & law of section">Jeypore Sadar PS U.D. case No.15</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">20</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/PURI%20GRPS%20UD%20CASE%20NO.29-24.jpg" alt="Person 2"></td>
+                    <td data-label="Age">45</td>
+                    <td data-label="Date">23/01/2024</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">boisar</td>
+                    <td data-label="Police Station">Kubhavali police station</td>
+                    <td data-label="Case No & law of section">PURI GRPS UD CASE NO.04</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">21</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/BGM-7-2016%20001.jpg" alt="Person 2"></td>
+                    <td data-label="Age">50</td>
+                    <td data-label="Date">12/08/2016</td>
+                    <td data-label="Gender">Female</td>
+                    <td data-label="City">kotpad</td>
+                    <td data-label="Police Station">bodhghat police station</td>
+                    <td data-label="Case No & law of section">Boriguma PS U.D. case No.07</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">22</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/TOWN%20P.S-%20U.D%2027%20OF%2022.jpg" alt="Person 2"></td>
+                    <td data-label="Age">62</td>
+                    <td data-label="Date">14/06/2022</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">kendujhar</td>
+                    <td data-label="Police Station">Superintendent of Police Office</td>
+                    <td data-label="Case No & law of section">DHENKANAL DISTRICT TOWN P.S U.D CASE NO- 27</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">23</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/TOWN%20U.D%20-20%20OF%2022_0.jpg" alt="Person 2"></td>
+                    <td data-label="Age">46</td>
+                    <td data-label="Date">06/05/2022</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Hindol</td>
+                    <td data-label="Police Station"> police station hindol, dhenkanal</td>
+                    <td data-label="Case No & law of section">DHENKANAL DISTRICT TOWN P.S U.D CASE NO- 20 </td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">24</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/RASOL%20PS%20UD%20CASE%20NO.01-21%20001.jpg" alt="Person 2"></td>
+                    <td data-label="Age">1</td>
+                    <td data-label="Date">21/12/2023</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Rasol</td>
+                    <td data-label="Police Station">rasol police station</td>
+                    <td data-label="Case No & law of section">RASOL PS UD CASE NO-01/2021</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">25</td>
+                    <td data-label="Image"><img src="https://odishapolicecidcb.gov.in/sites/default/files/Rengali%20PS%20UD%20Case%20No-220.jpg" alt="Person 2"></td>
+                    <td data-label="Age">22</td>
+                    <td data-label="Date">10/02/2016</td>
+                    <td data-label="Gender">Female</td>
+                    <td data-label="City">Sambalpur</td>
+                    <td data-label="Police Station">Ainthapali police station</td>
+                    <td data-label="Case No & law of section">Rengali P.S Case No.220</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">26</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/5_3.jpg" alt="Person 2"></td>
+                    <td data-label="Age">70</td>
+                    <td data-label="Date">21/03/2016</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Bargarh</td>
+                    <td data-label="Police Station">Sadar Police Station, Bargarh IRAD</td>
+                    <td data-label="Case No & law of section">Town P.S U.D Case No.33</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">27</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/scan0189.jpg" alt="Person 2"></td>
+                    <td data-label="Age">20</td>
+                    <td data-label="Date">09/06/2016</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Ganjam</td>
+                    <td data-label="Police Station">Ganjam Police Station</td>
+                    <td data-label="Case No & law of section">Chamakhandi U.D case no.4/16</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">28</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/Rural-1217.jpg" alt="Person 2"></td>
+                    <td data-label="Age">55</td>
+                    <td data-label="Date">25/02/2017</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Bhadrak</td>
+                    <td data-label="Police Station">Bhadrak Rural Police Station</td>
+                    <td data-label="Case No & law of section">Bhadrak Rural PS UD case No. 12/17</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">29</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/B.%20Pokhari%20case%208-16_0.jpg" alt="Person 2"></td>
+                    <td data-label="Age">57</td>
+                    <td data-label="Date">13/01/2016</td>
+                    <td data-label="Gender">Female</td>
+                    <td data-label="City">Bhadrak</td>
+                    <td data-label="Police Station">Police Station Bhandaripokhari, Bhadrak</td>
+                    <td data-label="Case No & law of section">Bhandaripokhari PS case No. 8</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">30</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/town%20ps%20ud%20case%20no-57%20of%202016.jpg" alt="Person 2"></td>
+                    <td data-label="Age">52</td>
+                    <td data-label="Date">10/08/2016</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Keonjhar</td>
+                    <td data-label="Police Station">pandapada police station</td>
+                    <td data-label="Case No & law of section">Town P.S UD Case No 57</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">31</td>
+                    <td data-label="Image"><img src="https://odishapolicecidcb.gov.in/sites/default/files/SBDA%20UD%2018.jpg" alt="Person 2"></td>
+                    <td data-label="Age">65</td>
+                    <td data-label="Date">06/11/2017</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Koraput</td>
+                    <td data-label="Police Station">District Police Head Quarter, Koraput</td>
+                    <td data-label="Case No & law of section">SUNABEDA PS UD CASE NO.18</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">32</td>
+                    <td data-label="Image"><img src="https://odishapolicecidcb.gov.in/sites/default/files/KND-3-2016.jpg" alt="Person 2"></td>
+                    <td data-label="Age">65</td>
+                    <td data-label="Date">24/02/2016</td>
+                    <td data-label="Gender">Female</td>
+                    <td data-label="City">Koraput</td>
+                    <td data-label="Police Station">Reserve Police office Koraput</td>
+                    <td data-label="Case No & law of section">Kundar PS U.D. case No.03</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">33</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/Scan_20171227_132219.jpg" alt="Person 2"></td>
+                    <td data-label="Age">73</td>
+                    <td data-label="Date">18/02/2017</td>
+                    <td data-label="Gender">female</td>
+                    <td data-label="City">Mayurbhanj</td>
+                    <td data-label="Police Station">Rural Police Station Rairangpur</td>
+                    <td data-label="Case No & law of section">Jharpokhoria PS UD Case No-05</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">34</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/snp-16.jpg" alt="Person 2"></td>
+                    <td data-label="Age">36</td>
+                    <td data-label="Date">25/05/2016</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Subarnapur</td>
+                    <td data-label="Police Station">District Police Office, Subarnapur</td>
+                    <td data-label="Case No & law of section">Sonepur PS UD case No. 23</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">35</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/BBSR%20GRPS%20UD%20CASE%20NO.%2078-24.jpg" alt="Person 2"></td>
+                    <td data-label="Age">38</td>
+                    <td data-label="Date">05/11/2024</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">GRP Cuttack</td>
+                    <td data-label="Police Station">Manglabag police station</td>
+                    <td data-label="Case No & law of section">BBSR GRPS UD CASE NO. 78</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">36</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/SCX-4623_20160419_18235909.jpg" alt="Person 2"></td>
+                    <td data-label="Age">50</td>
+                    <td data-label="Date">09/02/2016</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">GRP Cuttack</td>
+                    <td data-label="Police Station">purighat police station</td>
+                    <td data-label="Case No & law of section">Mancheswar GROP UD case No. 02 </td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">37</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/Angul%2009.jpg" alt="Person 2"></td>
+                    <td data-label="Age">75</td>
+                    <td data-label="Date">03/02/2016</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Angul</td>
+                    <td data-label="Police Station">Angul police station</td>
+                    <td data-label="Case No & law of section">Angul PS UD Case No.09</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">38</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/U.D%2020-2016.jpg" alt="Person 2"></td>
+                    <td data-label="Age">40</td>
+                    <td data-label="Date">21/03/2016</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">GRP Cuttack</td>
+                    <td data-label="Police Station">Govt.Railway Police Station Cuttack</td>
+                    <td data-label="Case No & law of section">Bhubaneswar GRPS UD case No. 20 </td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">39</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/Hatibari%20Case%2009-16%20%28UD%29.jpg" alt="Person 2"></td>
+                    <td data-label="Age">27</td>
+                    <td data-label="Date">25/02/2016</td>
+                    <td data-label="Gender">Female</td>
+                    <td data-label="City">Sundargarh</td>
+                    <td data-label="Police Station">District Police headquater</td>
+                    <td data-label="Case No & law of section">Sundargarh district Hatibari PS UD case No.09</td>
+                </tr>
+                <tr>
+                    <td data-label="Sr. No.">40</td>
+                    <td data-label="Image"><img src="	https://odishapolicecidcb.gov.in/sites/default/files/RG%20Pur%20UD%2022-16%20%283%29.jpg" alt="Person 2"></td>
+                    <td data-label="Age">30</td>
+                    <td data-label="Date">04/05/2016</td>
+                    <td data-label="Gender">Male</td>
+                    <td data-label="City">Sundargarh</td>
+                    <td data-label="Police Station">Town police station</td>
+                    <td data-label="Case No & law of section">Sundargarh district Rajgangpur PS UD Case No.22</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function filterData() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#dataList tbody tr');
+
+            rows.forEach(row => {
+                const name = row.cells[2].textContent.toLowerCase();
+                const foundPlace = row.cells[5].textContent.toLowerCase();
+
+                if (name.includes(input) || foundPlace.includes(input)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

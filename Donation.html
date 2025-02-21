@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Section</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+        }
+
+        .donation-section {
+            background: #ffffff;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 2px solid #b08d57; /* Gold border */
+        }
+
+        .donation-section h2 {
+            margin-bottom: 15px;
+            color: #1d2d50; /* Dark blue color */
+        }
+
+        .donation-section p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .donation-section input {
+            padding: 8px;
+            font-size: 1rem;
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .donation-section button {
+            padding: 10px 20px;
+            background-color: #b08d57;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .donation-section button:hover {
+            background-color: #9c7c4d;
+        }
+
+        .donation-message {
+            margin-top: 15px;
+            color: #b08d57; /* Gold color */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="donation-section">
+        <h2>Support Our Cause</h2>
+        <p>Choose a donation amount:</p>
+
+        <!-- Fixed donation option (10 USD) -->
+        <button id="donate-10" onclick="setDonationAmount(10)">Donate ₹500</button>
+
+        <!-- Custom donation amount input -->
+        <input type="number" id="customAmount" placeholder="Enter custom amount" min="1">
+        <button onclick="donateCustomAmount()">Donate Custom Amount</button>
+
+        <!-- PayPal Button Container -->
+        <div id="paypal-button-container"></div>
+
+        <div class="donation-message" id="donationMessage"></div>
+    </div>
+
+    <!-- PayPal SDK Script with Your Client ID -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AXpQuBkuik9v-4EJoTYDl4cAGzGae4TILH-B3Xata9fUjUWg1jFy_vq3WIOi94McEQdhCQclcyCu3BlB&currency=USD"></script>
+    <script>
+        let donationAmount = 10; // Default donation amount (in USD)
+
+        // Set donation amount when user clicks on $10 button
+        function setDonationAmount(amount) {
+            donationAmount = amount;
+            renderPaypalButton(); // Re-render the PayPal button with the selected amount
+        }
+
+        // Handle custom donation amount
+        function donateCustomAmount() {
+            const customAmount = parseFloat(document.getElementById('customAmount').value);
+            if (isNaN(customAmount) || customAmount <= 0) {
+                alert('Please enter a valid amount.');
+            } else {
+                donationAmount = customAmount;
+                renderPaypalButton(); // Re-render the PayPal button with the custom amount
+            }
+        }
+
+        // Render the PayPal button
+        function renderPaypalButton() {
+            // Clear the existing PayPal button (if any)
+            document.getElementById('paypal-button-container').innerHTML = '';
+
+            // Create a new PayPal button
+            paypal.Buttons({
+                style: {
+                    layout: 'vertical',
+                    color: 'gold',
+                    shape: 'rect',
+                    label: 'donate'
+                },
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: donationAmount.toFixed(2) // Set the amount dynamically
+                            }
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        // Show a thank you message to the donor
+                        const messageDiv = document.getElementById('donationMessage');
+                        messageDiv.innerText = `Thank you, ${details.payer.name.given_name}, for your generous donation of $${donationAmount}!`;
+                    });
+                },
+                onError: function(err) {
+                    console.error('PayPal error:', err);
+                    const messageDiv = document.getElementById('donationMessage');
+                    messageDiv.innerText = `An error occurred during the donation process. Please try again.`;
+                }
+            }).render('#paypal-button-container'); // Display PayPal button
+        }
+
+        // Initialize the PayPal button with the default $10 amount
+        renderPaypalButton();
+    </script>
+
+</body>
+</html>
