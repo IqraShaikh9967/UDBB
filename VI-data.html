@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add btn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            background-color: rgb(238, 233, 222);
+        }
+
+        .container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 1200px;
+            margin: 1rem auto;
+            padding: 1rem;
+            box-sizing: border-box;
+            overflow-x: auto;
+        }
+
+        .search-bar {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 0.5rem;
+            background-color: #fff;
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 0.5rem;
+            font-size: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgb(88, 69, 30);
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Unclaimed Bodies Search</h2>
+
+        <input type="text" id="searchCity" placeholder="Search by City..." onkeyup="filterTable()">
+        
+        <!-- Add Record Button (Only visible for volunteers) -->
+        <button id="addRecordBtn" class="hidden" onclick="showAddForm()">Add New Record</button>
+
+        <table id="recordsTable">
+            <thead>
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>Image</th>
+                    <th>Age</th>
+                    <th>Date</th>
+                    <th>Gender</th>
+                    <th>City</th>
+                    <th>Police Station</th>
+                    <th>Case No & Law Section</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Preloaded Data Here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Form for Adding New Record -->
+    <div id="addRecordForm" class="hidden">
+        <h3>Add New Record</h3>
+        <input type="text" id="age" placeholder="Age" required>
+        <input type="date" id="date" required>
+        <input type="text" id="gender" placeholder="Gender" required>
+        <input type="text" id="city" placeholder="City" required>
+        <input type="text" id="policeStation" placeholder="Police Station" required>
+        <input type="text" id="caseNo" placeholder="Case No & Law Section" required>
+        <input type="file" id="imageUpload" accept="image/*" required>
+        <button onclick="addRecord()">Submit</button>
+        <button onclick="hideAddForm()">Cancel</button>
+    </div>
+
+    <script>
+        let records = JSON.parse(localStorage.getItem('unclaimedBodies')) || [
+            { srNo: 1, image: "https://odishapolicecidcb.gov.in/sites/default/files/BBSR%20grps%20ud%20case%20no.%2074-24.jpg", age: 35, date: "06/10/2022", gender: "Male", city: "Cuttack", policeStation: "Cuttack sadar police station", caseNoLaw: "BBSR grps ud case no. 74/24" },
+            { srNo: 2, image: "https://odishapolicecidcb.gov.in/sites/default/files/BERHAMPUR%20GRPS%20UD%20CASE%20NO.01-24.jpg", age: 43, date: "28/09/2022", gender: "Female", city: "Nagpur", policeStation: "Nagpur Junction(NGP)", caseNoLaw: "Berhampur grps ud case no.01" }
+        ];
+
+        function renderRecords(filterCity = '') {
+            const recordsTableBody = document.querySelector('#recordsTable tbody');
+            recordsTableBody.innerHTML = '';
+
+            records.forEach((record, index) => {
+                if (!filterCity || record.city.toLowerCase().includes(filterCity.toLowerCase())) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${record.srNo}</td>
+                        <td><img src="${record.image}" alt="Image"></td>
+                        <td>${record.age}</td>
+                        <td>${record.date}</td>
+                        <td>${record.gender}</td>
+                        <td>${record.city}</td>
+                        <td>${record.policeStation}</td>
+                        <td>${record.caseNoLaw}</td>
+                        <td>
+                            <button onclick="editRecord(${index})">Edit</button>
+                            <button onclick="deleteRecord(${index})">Delete</button>
+                        </td>
+                    `;
+                    recordsTableBody.appendChild(row);
+                }
+            });
+
+            localStorage.setItem('unclaimedBodies', JSON.stringify(records));
+        }
+
+        function showAddForm() {
+            document.getElementById('addRecordForm').classList.remove('hidden');
+        }
+
+        function hideAddForm() {
+            document.getElementById('addRecordForm').classList.add('hidden');
+        }
+
+        function addRecord() {
+            const age = document.getElementById('age').value;
+            const date = document.getElementById('date').value;
+            const gender = document.getElementById('gender').value;
+            const city = document.getElementById('city').value;
+            const policeStation = document.getElementById('policeStation').value;
+            const caseNoLaw = document.getElementById('caseNo').value;
+            const imageFile = document.getElementById('imageUpload').files[0];
+
+            if (!age || !date || !gender || !city || !policeStation || !caseNoLaw || !imageFile) {
+                alert('Please fill all fields and upload an image.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                records.push({
+                    srNo: records.length + 1,
+                    image: e.target.result,
+                    age,
+                    date,
+                    gender,
+                    city,
+                    policeStation,
+                    caseNoLaw
+                });
+
+                renderRecords();
+                hideAddForm();
+            };
+            reader.readAsDataURL(imageFile);
+        }
+
+        function editRecord(index) {
+            const updatedCity = prompt('Enter new city:', records[index].city);
+            if (updatedCity) {
+                records[index].city = updatedCity;
+                renderRecords();
+            }
+        }
+
+        function deleteRecord(index) {
+            if (confirm('Are you sure you want to delete this record?')) {
+                records.splice(index, 1);
+                renderRecords();
+            }
+        }
+
+        function filterTable() {
+            const filterCity = document.getElementById('searchCity').value.toLowerCase();
+            renderRecords(filterCity);
+        }
+
+        function checkVolunteerAuth() {
+            if (localStorage.getItem("volunteerLoggedIn") === "true") {
+                document.getElementById("addRecordBtn").classList.remove("hidden");
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderRecords();
+            checkVolunteerAuth();
+        });
+    </script>
+
+</body>
+</html>
+
+
+<!-- //importantttt -->
