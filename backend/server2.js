@@ -208,7 +208,6 @@ const server = http.createServer((req, res) => {
                     res.writeHead(500, { "Content-Type": "application/json" });
                     res.end(JSON.stringify({ message: "Invalid server error" }));
                 }
-            });
         });
     }
     // Check role route
@@ -230,4 +229,5 @@ const server = http.createServer((req, res) => {
 });
 
 // Start server
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
