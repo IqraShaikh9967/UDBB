@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>add btn</title>
+    <title>Claimed Bodies Data</title>
     <style>
+       
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -70,164 +71,122 @@
             border-radius: 5px;
         }
 
-        .hidden {
-            display: none;
-        }
+
     </style>
 </head>
 <body>
-
     <div class="container">
-        <h2>Unclaimed Bodies Search</h2>
+        <h2>Claimed Bodies Data Edit</h2>
+       
+            <input type="text" id="search" placeholder="Search by Name..." onkeyup="searchTable()">
 
-        <input type="text" id="searchCity" placeholder="Search by City..." onkeyup="filterTable()">
-        
-        <!-- Add Record Button (Only visible for volunteers) -->
-        <button id="addRecordBtn" class="hidden" onclick="showAddForm()">Add New Record</button>
-
+            <button class="hidden">Add New Record</button>
+     
         <table id="recordsTable">
             <thead>
                 <tr>
-                    <th>Sr. No.</th>
+                    <th>Sr. <br> No.</th>
                     <th>Image</th>
+                    <th>Name</th>
                     <th>Age</th>
-                    <th>Date</th>
+                    <th>Date of Death</th>
                     <th>Gender</th>
-                    <th>City</th>
-                    <th>Police Station</th>
-                    <th>Case No & Law Section</th>
+                    <th>Area</th>
+                    <th>NGO Name</th>
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- Preloaded Data Here -->
+            <tbody id="tableBody">
+                <!-- Data Rows Here -->
             </tbody>
         </table>
     </div>
 
-    <!-- Form for Adding New Record -->
-    <div id="addRecordForm" class="hidden">
-        <h3>Add New Record</h3>
-        <input type="text" id="age" placeholder="Age" required>
-        <input type="date" id="date" required>
-        <input type="text" id="gender" placeholder="Gender" required>
-        <input type="text" id="city" placeholder="City" required>
-        <input type="text" id="policeStation" placeholder="Police Station" required>
-        <input type="text" id="caseNo" placeholder="Case No & Law Section" required>
-        <input type="file" id="imageUpload" accept="image/*" required>
-        <button onclick="addRecord()">Submit</button>
-        <button onclick="hideAddForm()">Cancel</button>
-    </div>
 
-    <script>
-        let records = JSON.parse(localStorage.getItem('unclaimedBodies')) || [
-            { srNo: 1, image: "https://odishapolicecidcb.gov.in/sites/default/files/BBSR%20grps%20ud%20case%20no.%2074-24.jpg", age: 35, date: "06/10/2022", gender: "Male", city: "Cuttack", policeStation: "Cuttack sadar police station", caseNoLaw: "BBSR grps ud case no. 74/24" },
-            { srNo: 2, image: "https://odishapolicecidcb.gov.in/sites/default/files/BERHAMPUR%20GRPS%20UD%20CASE%20NO.01-24.jpg", age: 43, date: "28/09/2022", gender: "Female", city: "Nagpur", policeStation: "Nagpur Junction(NGP)", caseNoLaw: "Berhampur grps ud case no.01" }
-        ];
+<script>
+       // Load data from localStorage or use default dataset
+       let data = [
+    {sr: 1, img: "https://c8.alamy.com/zooms/9/f861ec43ab9e41978cb265336d145590/pnfthf.jpg", name: "Punit", age: 62, date: "2022-10-18", gender: "Male", area:"Govandi East", ngo: "Janseva Old Age Home"},
+    {sr: 2, img: "	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkZG8yvvge9l1uhSInM9fUdSyMLFqK4MY2pUDXF7IhBl-blC3tPSzd7--6qJQnZ1L1an8&usqp=CAU", name: "Romila", age: 43, date: "2019-02-28", gender: "Female", area: "Vasai west", ngo: "Sahas Charitable Trust"},
+    {sr: 3, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXEmIOBBRsJIBmM-_Nphvmq941ixviC-XDcDZOStlJajbCbZzikj9BkjO-L-xZuW67Dvk&usqp=CAU", name: "Advika", age: 39, date: "2021-05-07", gender: "Female", area:"Dadar East", ngo: "ACT Foundation"},
+    {sr: 4, img: "https://pbs.twimg.com/media/FzPqoElaEAAULBS?format=jpg&name=medium", name: "Indira", age: 35, date: "2020-01-05", gender: "Female", area:"Bandra East", ngo: "Muskan Foundation"},
+    {sr: 5, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCtQ7MOHTubCWPODGNdGu_paqji5DUjlyM3sMxFpQxFo_HfFynig5lKW79rVRXugsf_0Q&usqp=CAU", name: "Suresh", age: 54, date: "2022-10-18", gender: "Male", area:"Thane", ngo: "Aamcha ghar"},
+    {sr: 6, img: "https://pbs.twimg.com/media/GbNwS5GXIAAmfvA.jpg", name: "Kashvi", age: 45, date: "2018-07-21", gender: "Female", area:"Ghatkopar west", ngo: "Adarsh charitable trust"},
+    {sr: 7, img: "https://i0.wp.com/www.featureshoot.com/wp-content/uploads/2017/02/13.sleeping-beauty_de-mayda_indra-kumar-jha_varanasi.jpg?resize=620%2C438&ssl=1", name: "Chiranjeev", age: 71, date: "2020-06-13", gender: "Male", area:"Panvel", ngo: "Shree Radhe Krishna Sanatan Dharm Foundation"},
+    {sr: 8, img: "https://media.elbalad.news/2024/10/large/980/2/181.jpg", name: "Zoya", age: 32, date: "2023-11-16", gender: "Female", area:"Andheri East", ngo: "Mauli foundation"},
+    {sr: 9, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgqydeCYN_fQysI5aTG_9kHt0ZnsMMPvLUUE5mnh092MJwzCEcoBPb3PqmwaDpN5GKmMI&usqp=CAU", name: "Saumya", age: 38, date: "2024-12-01", gender: "Female", area:"Thane west", ngo: "Aarna foundation"},
+    {sr: 10, img: "https://pbs.twimg.com/media/Fxe3Q37WwAIohNy.jpg", name: "Ujjwala", age: 43, date: "2021-07-02", gender: "Female", area:"Khargar", ngo: "Girija welfare association"},
+    {sr: 11, img: "https://pbs.twimg.com/media/GNhPweXWUAAdYJC.jpg", name: "Punit", age: 56, date: "2022-10-18", gender: "Female", area:"Govandi East", ngo: "Janseva Old Age Home"},
+    {sr: 12, img: "https://images.bhaskarassets.com/webp/thumb/360x0/web2images/521/2022/06/26/371f6686-1ad3-40fc-8979-46637f8e67ad_1656211626384.jpg", name: "Punit", age: 56, date: "2022-10-18", gender: "Female", area:"Govandi East", ngo: "Janseva Old Age Home"},
+    {sr: 13, img: "https://assets.change.org/photos/4/an/wn/yIAnWNTzbPIAuTL-800x450-noPad.jpg?1556176667", name: "Punit", age: 56, date: "2022-10-18", gender: "Female", area:"Govandi East", ngo: "Janseva Old Age Home"},
+    {sr: 14, img: "https://i0.wp.com/www.featureshoot.com/wp-content/uploads/2017/02/6.sleeping-beauty_de-mayda_indra-kumar-jha_varanasi_k.jpg?fit=620%2C438&ssl=1", name: "Punit", age: 56, date: "2022-10-18", gender: "Female", area:"Govandi East", ngo: "Janseva Old Age Home"},
+    {sr: 15, img: "https://swatigoelsharma.com/wp-content/uploads/2021/12/h2.jpg", name: "Punit", age: 56, date: "2022-10-18", gender: "Female", area:"Govandi East", ngo: "Janseva Old Age Home"},
+    {sr: 16, img: "https://assets.change.org/photos/4/an/wn/yIAnWNTzbPIAuTL-800x450-noPad.jpg?1556176667", name: "Punit", age: 56, date: "2022-10-18", gender: "Female", area:"Govandi East", ngo: "Janseva Old Age Home"},
+];
 
-        function renderRecords(filterCity = '') {
-            const recordsTableBody = document.querySelector('#recordsTable tbody');
-            recordsTableBody.innerHTML = '';
 
-            records.forEach((record, index) => {
-                if (!filterCity || record.city.toLowerCase().includes(filterCity.toLowerCase())) {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${record.srNo}</td>
-                        <td><img src="${record.image}" alt="Image"></td>
-                        <td>${record.age}</td>
-                        <td>${record.date}</td>
-                        <td>${record.gender}</td>
-                        <td>${record.city}</td>
-                        <td>${record.policeStation}</td>
-                        <td>${record.caseNoLaw}</td>
-                        <td>
-                            <button onclick="editRecord(${index})">Edit</button>
-                            <button onclick="deleteRecord(${index})">Delete</button>
-                        </td>
-                    `;
-                    recordsTableBody.appendChild(row);
-                }
-            });
+function saveToLocalStorage() {
+    localStorage.setItem("claimedBodiesData", JSON.stringify(data));
+}
 
-            localStorage.setItem('unclaimedBodies', JSON.stringify(records));
+function loadTable() {
+    let tableBody = document.getElementById("tableBody");
+    tableBody.innerHTML = "";
+    data.forEach((item, index) => {
+        let row = `<tr>
+            <td>${item.sr}</td>
+            <td><img src="${item.img}" alt="Image"></td>
+            <td>${item.name}</td>
+            <td>${item.age}</td>
+            <td>${item.date}</td>
+            <td>${item.gender}</td>
+            <td>${item.area}</td>
+            <td>${item.ngo}</td>
+            <td>
+                <button onclick="editRecord(${index})">Edit</button> <br> <br>
+                <button onclick="deleteRecord(${index})">Delete</button>
+            </td>
+        </tr>`;
+        tableBody.innerHTML += row;
+    });
+}
+
+function editRecord(index) {
+    let newName = prompt("Enter new name:", data[index].name);
+    if (newName !== null) {
+        data[index].name = newName;
+        saveToLocalStorage(); // Save updated data
+        loadTable();
+    }
+}
+
+function deleteRecord(index) {
+    if (confirm("Are you sure you want to delete this record?")) {
+        data.splice(index, 1);
+        saveToLocalStorage(); // Save after deletion
+        loadTable();
+    }
+}
+
+function searchTable() {
+    let input = document.getElementById("search").value.toLowerCase();
+    let tableBody = document.getElementById("tableBody");
+    let rows = tableBody.getElementsByTagName("tr");
+
+    for (let row of rows) {
+        let nameCell = row.getElementsByTagName("td")[2]; // 3rd column (index 2) is 'Name'
+        if (nameCell) {
+            let nameText = nameCell.textContent.toLowerCase();
+            row.style.display = nameText.includes(input) ? "" : "none";
         }
+    }
+}
 
-        function showAddForm() {
-            document.getElementById('addRecordForm').classList.remove('hidden');
-        }
 
-        function hideAddForm() {
-            document.getElementById('addRecordForm').classList.add('hidden');
-        }
+// Load data on page load
+window.onload = loadTable;
 
-        function addRecord() {
-            const age = document.getElementById('age').value;
-            const date = document.getElementById('date').value;
-            const gender = document.getElementById('gender').value;
-            const city = document.getElementById('city').value;
-            const policeStation = document.getElementById('policeStation').value;
-            const caseNoLaw = document.getElementById('caseNo').value;
-            const imageFile = document.getElementById('imageUpload').files[0];
-
-            if (!age || !date || !gender || !city || !policeStation || !caseNoLaw || !imageFile) {
-                alert('Please fill all fields and upload an image.');
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                records.push({
-                    srNo: records.length + 1,
-                    image: e.target.result,
-                    age,
-                    date,
-                    gender,
-                    city,
-                    policeStation,
-                    caseNoLaw
-                });
-
-                renderRecords();
-                hideAddForm();
-            };
-            reader.readAsDataURL(imageFile);
-        }
-
-        function editRecord(index) {
-            const updatedCity = prompt('Enter new city:', records[index].city);
-            if (updatedCity) {
-                records[index].city = updatedCity;
-                renderRecords();
-            }
-        }
-
-        function deleteRecord(index) {
-            if (confirm('Are you sure you want to delete this record?')) {
-                records.splice(index, 1);
-                renderRecords();
-            }
-        }
-
-        function filterTable() {
-            const filterCity = document.getElementById('searchCity').value.toLowerCase();
-            renderRecords(filterCity);
-        }
-
-        function checkVolunteerAuth() {
-            if (localStorage.getItem("volunteerLoggedIn") === "true") {
-                document.getElementById("addRecordBtn").classList.remove("hidden");
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            renderRecords();
-            checkVolunteerAuth();
-        });
     </script>
 
 </body>
 </html>
-
-
-<!-- //importantttt -->

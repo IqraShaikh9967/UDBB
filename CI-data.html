@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claimed Bodies Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            background-color: rgb(238, 233, 222);
+        }
+
+        .container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 1200px;
+            margin: 1rem auto;
+            padding: 1rem;
+            box-sizing: border-box;
+            overflow-x: auto;
+        }
+
+        .search-bar {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 0.5rem;
+            background-color: #fff;
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 0.5rem;
+            font-size: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgb(88, 69, 30);
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Claimed Bodies Search</h2>
+        <input type="text" id="search" placeholder="Search by Name..." onkeyup="searchTable()">
+        <table id="recordsTable">
+            <thead>
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Date of Death</th>
+                    <th>Gender</th>
+                    <th>Area</th>
+                    <th>NGO Name</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+
+<script>
+    let data = [
+        {sr: 1, img: "https://c8.alamy.com/zooms/9/f861ec43ab9e41978cb265336d145590/pnfthf.jpg", name: "Punit", age: 62, date: "2022-10-18", gender: "Male", area:"Govandi East", ngo: "Janseva Old Age Home"},
+        {sr: 2, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkZG8yvvge9l1uhSInM9fUdSyMLFqK4MY2pUDXF7IhBl-blC3tPSzd7--6qJQnZ1L1an8&usqp=CAU", name: "Romila", age: 43, date: "2019-02-28", gender: "Female", area: "Vasai west", ngo: "Sahas Charitable Trust"},
+        {sr: 3, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXEmIOBBRsJIBmM-_Nphvmq941ixviC-XDcDZOStlJajbCbZzikj9BkjO-L-xZuW67Dvk&usqp=CAU", name: "Advika", age: 39, date: "2021-05-07", gender: "Female", area:"Dadar East", ngo: "ACT Foundation"},
+        {sr: 4, img: "https://pbs.twimg.com/media/FzPqoElaEAAULBS?format=jpg&name=medium", name: "Indira", age: 35, date: "2020-01-05", gender: "Female", area:"Bandra East", ngo: "Muskan Foundation"},
+        {sr: 5, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCtQ7MOHTubCWPODGNdGu_paqji5DUjlyM3sMxFpQxFo_HfFynig5lKW79rVRXugsf_0Q&usqp=CAU", name: "Suresh", age: 54, date: "2022-10-18", gender: "Male", area:"Thane", ngo: "Aamcha ghar"},
+        {sr: 6, img: "https://pbs.twimg.com/media/GbNwS5GXIAAmfvA.jpg", name: "Kashvi", age: 45, date: "2018-07-21", gender: "Female", area:"Ghatkopar west", ngo: "Adarsh charitable trust"},
+        {sr: 7, img: "https://i0.wp.com/www.featureshoot.com/wp-content/uploads/2017/02/13.sleeping-beauty_de-mayda_indra-kumar-jha_varanasi.jpg?resize=620%2C438&ssl=1", name: "Chiranjeev", age: 71, date: "2020-06-13", gender: "Male", area:"Panvel", ngo: "Shree Radhe Krishna Sanatan Dharm Foundation"},
+        {sr: 8, img: "https://media.elbalad.news/2024/10/large/980/2/181.jpg", name: "Zoya", age: 32, date: "2023-11-16", gender: "Female", area:"Andheri East", ngo: "Mauli foundation"},
+        {sr: 9, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgqydeCYN_fQysI5aTG_9kHt0ZnsMMPvLUUE5mnh092MJwzCEcoBPb3PqmwaDpN5GKmMI&usqp=CAU", name: "Saumya", age: 38, date: "2024-12-01", gender: "Female", area:"Thane west", ngo: "Aarna foundation"},
+        {sr: 10, img: "https://pbs.twimg.com/media/Fxe3Q37WwAIohNy.jpg", name: "Ujjwala", age: 43, date: "2021-07-02", gender: "Female", area:"Khargar", ngo: "Girija welfare association"},
+        {sr: 11, img: "https://pbs.twimg.com/media/GNhPweXWUAAdYJC.jpg", name: "lakshmi", age: 39, date: "2020-10-18", gender: "Female", area:"Airoli - Digha", ngo: "Aasara "},
+        {sr: 12, img: "https://images.bhaskarassets.com/webp/thumb/360x0/web2images/521/2022/06/26/371f6686-1ad3-40fc-8979-46637f8e67ad_1656211626384.jpg", name: "Vibha", age: 64, date: "2023-05-07", gender: "Female", area:"Andheri West", ngo: "St.Catherine's Home "},
+        {sr: 13, img: "https://assets.change.org/photos/4/an/wn/yIAnWNTzbPIAuTL-800x450-noPad.jpg?1556176667", name: "Saniya", age: 38, date: "2024-07-13", gender: "Female", area:"Andheri", ngo: "Fatima Sadan"},
+        {sr: 14, img: "https://i0.wp.com/www.featureshoot.com/wp-content/uploads/2017/02/6.sleeping-beauty_de-mayda_indra-kumar-jha_varanasi_k.jpg?fit=620%2C438&ssl=1", name: "Atharva", age: 82, date: "2023-01-02", gender: "Female", area:"Borivali East", ngo: "Sneha Sagar Society "},
+        {sr: 15, img: "https://swatigoelsharma.com/wp-content/uploads/2021/12/h2.jpg", name: "Kavya", age: 43, date: "2020-06-29", gender: "Female", area:"Bandra", ngo: "Navjeet Community Centre "},
+        {sr: 16, img: "data:image/jpeg;base64,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", name: "Noorjahan", age: 31, date: "2024-03-07", gender: "Female", area:"Bhayandar", ngo: "Amcha Ghar "},
+        {sr: 17, img: "  https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO0EMreCHrYTcJs10VDfT5Qu7EnEoOwXCGYg&s", name: "Devika", age: 49, date: "2022-07-25", gender: "Female", area:"Andheri", ngo: "Vimala Boarding Varsova"},
+        {sr: 18, img: " https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhma7HrwKmYvEWTclYRgJBaNkTU2f7M4S7uDJWKulknhsSJxlo_ujXoF-g2VJK_UmVkk8&usqp=CAU", name: "Harini", age: 54, date: "2021-11-22", gender: "Female", area:"Mansarovar", ngo: "Jyothis Care Centre "},
+        {sr: 19, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmFcYe5XOsQUkqzxnQIgcc8RKOoZ2HJLW6mdY5kQkMt92J5FxJz0yHEbxobNAa5JfJkc&usqp=CAU", name: "Aarohi", age: 38, date: "2020-08-31", gender: "Female", area:"Mankhurd", ngo: "Vivek Education Foundation "},
+        {sr: 20, img: "https://kettocdn.gumlet.io/media/campaign/353000/353444/image/604d947e593d1.jpeg?w=400&dpr=2.6", name: "Gayatri", age: 67, date: "2023-12-15", gender: "Female", area:"Naigaon West", ngo: "EL-Shaddai Ministries"},
+       cd
+];
+
+    function loadTable() {
+        let tableBody = document.getElementById("tableBody");
+        tableBody.innerHTML = "";
+        data.forEach((item) => {
+            let row = `<tr>
+                <td>${item.sr}</td>
+                <td><img src="${item.img}" alt="Image"></td>
+                <td>${item.name}</td>
+                <td>${item.age}</td>
+                <td>${item.date}</td>
+                <td>${item.gender}</td>
+                <td>${item.area}</td>
+                <td>${item.ngo}</td>
+            </tr>`;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    function searchTable() {
+        let input = document.getElementById("search").value.toLowerCase();
+        let tableBody = document.getElementById("tableBody");
+        let rows = tableBody.getElementsByTagName("tr");
+
+        for (let row of rows) {
+            let nameCell = row.getElementsByTagName("td")[2];
+            if (nameCell) {
+                let nameText = nameCell.textContent.toLowerCase();
+                row.style.display = nameText.includes(input) ? "" : "none";
+            }
+        }
+    }
+
+    window.onload = loadTable;
+</script>
+</body>
+</html>

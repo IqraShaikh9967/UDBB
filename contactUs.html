@@ -3,15 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot</title>
+    <title>Contact & Chatbot</title>
     <style>
-        /* important */
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            color: #3e2723;
+            background-color: white; /* Beige background */
+            color: #5a3e2b; /* Brown text */
             margin: 0;
             padding: 20px;
+            text-align: center;
+        }
+        .container1 {
+            text-align: center;
+            background: #ffffff; /* White background */
+            padding: 30px;
+            border-radius: 10px;
+            /* box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.1); */
+            width: 90%;
+            max-width: 400px;
+            margin: 0 auto 20px;
+            background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), 
+            /* url('https://img.freepik.com/premium-vector/contact-us-sign-contact-us-blue-sticker-white-baclground_100456-6445.jpg') no-repeat center center/cover; */
+}
+
+        
+        .contact-header {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .contact-text {
+            margin: 10px 0 20px;
+            font-size: 16px;
+        }
+        .contact-icon {
+            font-size: 40px;
+            color: #8b5e3c;
+            margin-bottom: 10px;
+        }
+        .contact-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #8b5e3c;
+            text-decoration: none;
+        }
+        .contact-number:hover {
+            text-decoration: underline;
         }
         .chatbot {
             margin-top: 20px;
@@ -65,10 +101,24 @@
             color: black;
             border: 2px solid rgb(88, 69, 30);
         }
-
     </style>
 </head>
 <body>
+    <div class="container1">
+        <div class="contact-header" style="text-decoration: underline;">Get in Touch</div>
+        <p class="contact-text">Want to get in touch? We’d love to hear from you. Here’s how you can reach us.</p>
+        <div class="contact-icon"> ☎️</div>
+        <div class="contact-text">Feel free to contact our Volunteers</div>
+        <a href="tel:+91-9152654104" class="contact-number" >Contact number:  <br>+91-9152654104/ +91-7021220996</a>
+        <p class="contact-number" style="text-decoration: none;">Email: <br>UDBBinitiative@gmail.com</p>
+        <p class="contact-number" style="text-decoration: none;">Join the community: <br>
+        <a href="https://wa.me/?text=I%20just%20donated%20to%20a%20great%20cause%20on%20this%20platform.%20Join%20me%20in%20making%20a%20difference!%20Visit%20now%20%3A%20https%3A%2F%2Faesthetic-kringle-2d74a9.netlify.app%2F"
+        target="_blank" class="contact-number">
+        <button class="contact-number" style="background-color: #8a715d; color: black; border: 0.2px grey; border-radius: 2px;"> Dm here</button>
+        </a>
+        </p>
+
+    </div>
 
     <div class="chatbot">
         <h2 style="font-style: italic;">"Get Instant Reply to your Queries here"</h2>
@@ -97,20 +147,18 @@
         }
 
         function getChatResponse(input) {
-            input = input.toLowerCase().trim(); // Normalize input
-
+            input = input.toLowerCase().trim();
             const responses = {
                 "where can i search and view dead bodies?": "You can search and view dead bodies in our 'Search Dead Body' section. You can choose whether you are finding an unclaimed body or an NGO handovered body.",
                 "where is the donation being used?": "Donations are used for burial procedures, medical examinations, and for mandatory legal procedures",
-                "where can i donate to the initiative?": "You can donate through our payment gateway in the donation section on the website.",
+                "where can i donate to the initiative?": "You can donate through our payment gateway in the 'Donation section' on the website.",
                 "how can i report an unidentified body?": "You can report an unidentified body using our official contact number given in the contact section,inform our volunteers in the call and further share us the location of body received",
                 "everything about ngo body burial form": "The NGO body burial form includes details of the deceased, NGO name and contact person details, and required legal formalities.Once form is submitted, it is verified by our volunteers and if we have the resources available at that time period, we will approve your request and contact you once shortlisted.",
 
                 "how will i get to know if my submitted form is accepted or not?": "You will receive a confirmation email/SMS and call once your form is reviewed and accepted within 8 working hours. You can even check the form status if it is viewed, accepted or denied in the 'Pending approval section'",
                 "do the handed-over bodies get buried according to their religion?": "Yes, we try our best to conduct burials as per the deceased's religious customs.",
-                "can the local public hand over a body to this initiative?": "Yes, If the family income is less than 90k per anum then only we accept the body. the local public can inform us, and we will follow the legal process before taking custody of the body.Income certificate is mandatory to show here"
+                "can the local public hand over a body to this initiative?": "Yes, If the family income is less than 90k per anum then only we accept the body. the local public can inform us, and we will follow the legal process before taking custody of the body.Income certificate is mandatory to show here"  
             };
-
             return responses[input] || "I'm here to assist. Please ask about reporting, volunteering, donations, or status updates.";
         }
     </script>

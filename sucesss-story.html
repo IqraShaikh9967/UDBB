@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UDBB Success Stories</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      gap: 40px;
+      flex-direction: column;
+      align-items: center;
+    }
+    .form-container {
+      background-color: #fff;
+      width: 80%;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+    }
+    .form-container h3 {
+      color: #7a5916;
+      text-align: center;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+    input, textarea, button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background-color: #5c430e;
+      color: white;
+      border: none;
+      margin-top: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #7a5916;
+    }
+    .container {
+      background-color: #fff;
+      width: 80%;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+    .heading {
+      color: #7a5916;
+      font-size: 32px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .story-block {
+      margin-bottom: 30px;
+      padding: 20px;
+      border-left: 6px solid #a47c1b;
+      background-color: #fdf8ef;
+      border-radius: 8px;
+    }
+    .story {
+      font-size: 17px;
+      color: #333;
+      line-height: 1.7;
+      font-style: italic;
+    }
+    .author {
+      margin-top: 12px;
+      font-weight: bold;
+      color: #5c430e;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h3> Share Your UDBB Experience </h3>
+    <form id="storyForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <textarea id="storyText" placeholder="Your heartfelt story of impact..." rows="6" required></textarea>
+      <button type="submit">Submit Your Story</button>
+    </form>
+  </div>
+
+  <div class="container" id="storyContainer">
+    <div class="heading">Success Stories here...</div>
+
+    <div class="story-block">
+      <div class="story">As the head of a small NGO, we were devastated when one of our long-time residents passed away. We lacked the resources to give him a proper burial, and the emotional weight was heavy on our team. That’s when UDBB stepped in — not only did they handle the burial with complete respect and dignity, but they also managed all the logistics and expenses. It felt like a huge burden lifted off our shoulders. They treated our resident like family, and for that, we will always be grateful.</div>
+      <div class="author">— Aahana, NGO Director</div>
+    </div>
+
+    <div class="story-block">
+      <div class="story">I never imagined I would find my brother after months of searching. Through UDBB’s database of unclaimed bodies, I was able to identify him and give him the peaceful farewell he deserved. Their team stood by me in every formal procedure, making it all less painful. I will always be thankful.</div>
+      <div class="author">— Rakesh, Brother</div>
+    </div>
+
+    <div class="story-block">
+      <div class="story">When my father, a mentally ill homeless man, passed away on the streets, UDBB found his details through a social worker and buried him with full rites. I couldn’t afford anything, yet they never let me feel helpless. They brought dignity to my father’s final journey.</div>
+      <div class="author">— Meena, Daughter</div>
+    </div>
+
+    <div class="story-block">
+      <div class="story">We run a rehab center and unfortunately lost a young boy to an overdose. His family never came forward. UDBB gave him a proper send-off like he was their own. Their volunteers even lit candles and prayed — it was deeply touching.</div>
+      <div class="author">— Anil, NGO Caretaker</div>
+    </div>
+
+    <div class="story-block">
+      <div class="story">My uncle had been missing for over a year. One night, scrolling through UDBB's site, I came across his picture. My heart sank and lifted at once. I finally had closure, and UDBB helped with all cremation procedures without charging a rupee.</div>
+      <div class="author">— Priya, Niece</div>
+    </div>
+
+    <div class="story-block">
+      <div class="story">UDBB helped us bury three unidentified bodies found after a flood. We were overwhelmed and under-equipped. They stepped in with grace and took care of everything with utmost dignity and professionalism.</div>
+      <div class="author">— Renu, Local Govt Volunteer</div>
+    </div>
+
+    <div class="story-block">
+      <div class="story">As a funeral home partner, I have seen many NGOs struggle with finances. UDBB makes it possible for them to bury the deceased without compromising on respect or rituals. It’s not just a service — it’s humanity.</div>
+      <div class="author">— Joseph, Funeral Home Manager</div>
+    </div>
+
+    <div class="story-block">
+      <div class="story">My younger brother was buried with dignity because of UDBB. They performed every ritual, respected our customs, and even arranged people for final prayers. As someone who had no means to do this alone, I was moved to tears.</div>
+      <div class="author">— Kamlesh, Sibling</div>
+    </div>
+
+    <div class="story-block">
+      <div class="story">We were a group of volunteers looking for help in giving final rites to a stranger who passed outside our area hospital. No one claimed him. UDBB responded within hours, coordinated with authorities, and ensured he didn’t leave the world unnamed.</div>
+      <div class="author">— Shruti, Community Member</div>
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById('storyContainer');
+
+    function renderStory(text, author) {
+      const block = document.createElement('div');
+      block.className = 'story-block';
+      block.innerHTML = `
+        <div class="story">${text}</div>
+        <div class="author">— ${author}</div>
+      `;
+      container.appendChild(block);
+    }
+
+    function loadStories() {
+      const stored = JSON.parse(localStorage.getItem('udbbStories') || '[]');
+      stored.forEach(({ text, author }) => renderStory(text, author));
+    }
+
+    document.getElementById('storyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const text = document.getElementById('storyText').value.trim();
+      if (name && text) {
+        renderStory(text, name);
+        const current = JSON.parse(localStorage.getItem('udbbStories') || '[]');
+        current.push({ text, author: name });
+        localStorage.setItem('udbbStories', JSON.stringify(current));
+        alert('Thank you for sharing your story, ' + name + '!');
+        document.getElementById('storyForm').reset();
+      }
+    });
+
+    window.onload = loadStories;
+  </script>
+</body>
+</html>

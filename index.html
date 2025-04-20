@@ -7,37 +7,18 @@
     <!-- Font Awesome CDN -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-    />
-    <!-- Google Fonts -->
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Stylesheet -->
-
+      rel="stylesheet"/>
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-     <!-- carousel  -->
+   
     <style>
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
    }
 
-.sc:hover{
-  background-color:rgb(88, 69, 30);
-  border: 5px solid rgb(88, 69, 30);
-   }
-
-.fp{
-    height: 522px;
-    align-items: center;
-    width: 500px;
-    position: absolute;
-    right: 850px;
-    left: 260px;
-    top: 80px;
-   }
 .topnav {
   overflow: hidden;
   background-color: rgb(88, 69, 30);
@@ -54,8 +35,8 @@ body {
 }
 
 .topnav a:hover {
-  background-color: rgb(171, 132, 49);
-  color: #ffffffdd;
+  background-color: rgb(171, 132, 49) !important;
+  color: #ffffffdd !important;
 }
 
 .topnav .icon {
@@ -180,8 +161,22 @@ body {
   }
   /* Starting of format section  */
 }
+
+.sc:hover{
+  background-color:rgb(88, 69, 30);
+  border: 5px solid rgb(88, 69, 30);
+   }
+
+.fp{
+    height: 522px;
+    align-items: center;
+    width: 500px;
+    position: absolute;
+    right: 850px;
+    left: 260px;
+    top: 80px;
+   }
   .cont{
-  /* border: 5px solid grey; */
   align-content: center;
   margin-top: 56px;
   }
@@ -275,11 +270,9 @@ body {
       max-width: 20%;
       padding: 0 1em;
     }
-  }
-       
+  }   
     /* donation bar  */
-       
-     /* Basic Reset */
+ 
      * {
             margin: 0;
             padding: 0;
@@ -386,16 +379,23 @@ body {
         .progress-bar {
             background-color: #5a4000;
         }
+        .btn-custom {
+        background-color: #5a4000 !important;
+        border-color: #5a4000 !important;
+        }
+        .btn-custom:hover {
+           background-color: #4a3500 !important;
+        }
     </style>
 </head>
 <body>
     
     <div class="topnav" id="myTopnav">
-        <a href="#home" >Home</a> 
-        <a href="#about us">About Us</a>
-        <a href="#donation">Donate</a>
-        <a href="#contact">Contact Us</a>
-        <a href="#success stories">Success Stories</a>
+        <a href="index.html" >Home</a> 
+        <a href="aboutus.html">About Us</a>
+        <a href="Donation.html">Donate</a>
+        <a href="contactUs.html">Contact Us</a>
+        <a href="sucesss-story.html">Success Stories</a>
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
           <i class="fa fa-bars"></i>
         </a>
@@ -412,49 +412,6 @@ body {
         }
         </script>
       
-      <!-- <div class="fp">
-        <h2 class="w3-center">Automatic Slideshow</h2> -->
-
-<!-- <div class="w3-content w3-section" id="flexing" style="max-width:500px;">
-  <img class="mySlides" src="./muslims gy.jpeg" style="height: 522px; width: 200%; align-items: center;">
-  <img class="mySlides" src="./christian gy.jpeg" style="height: 522px; width: 200%; align-items: center;">
-  <img class="mySlides" src="./hindu gy 2.jpg" style="height: 522px; width:200%; align-items: center;">
-</div>
-
-
-
-<script>
-var myIndex = 0;
-carousel();
-
-function carousel() {
-  var i;
-  var x = document.getElementsByClassName("mySlides");
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";  
-  }
-  myIndex++;
-  if (myIndex > x.length) {myIndex = 1}    
-  x[myIndex-1].style.display = "block";  
-  setTimeout(carousel, 2000); // Change image every 2 seconds
-}
-</script>
-
-      </div>
-      
-      <script>
-      function myFunction() {
-        var x = document.getElementById("myTopnav");
-        if (x.className === "topnav") {
-          x.className += " responsive";
-        } else {
-          x.className = "topnav";
-        }
-      }
-      </script>  -->
-
-
-      <!-- Carousel -->
 <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
       <div class="carousel-item active" data-bs-interval="3000">
@@ -470,19 +427,16 @@ function carousel() {
 
   <!-- Donation Box -->
   <div class="donation-box">
-      <h3>₹87,350</h3>
-      <p>Raised out of ₹1,50,000</p>
-      <div class="progress">
-          <div class="progress-bar" style="width: 58%;"></div>
-        </div>
-        <a href="https://wa.me/?text=I%20just%20donated%20to%20a%20great%20cause%20on%20this%20platform.%20Join%20me%20in%20making%20a%20difference!%20Visit%20now%20%3A%20https%3A%2F%2Faesthetic-kringle-2d74a9.netlify.app%2F"
-        target="_blank" class="btn btn-outline-dark mt-3">
-         Share
-        </a>
-        <button class="btn btn-dark mt-3"> <a href="Donation.html" style="color: #fbfafa; text-decoration: none;">Donate </a> </button>
-        </div>
-    </div>
-    
+    <h3>₹87,350</h3>
+    <p>Raised out of ₹1,50,000</p>
+    <div class="progress">
+        <div class="progress-bar" style="width: 58%;"></div>
+      </div>
+      <a href="https://wa.me/?text=I%20just%20donated%20to%20a%20great%20cause%20on%20this%20platform.%20Join%20me%20in%20making%20a%20difference!%20Visit%20now%20%3A%20https%3A%2F%2Fudbb.netlify.app%2F"
+      target="_blank" class="btn btn-dark btn-custom mt-3"> Share</a>
+      <button class="btn btn-dark btn-custom mt-3"> <a href="Donation.html" style=" color: #fbfafa; text-decoration: none;">Donate </a> </button>
+      </div>
+  </div>
 
   <!-- Controls -->
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -494,37 +448,8 @@ function carousel() {
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
-      <!-- newww  -->
-
-      <!-- <div class="d1cont">
-        <div class="donation-tracker">
-          <div class="raised-amount">₹87,350</div>
-          <div class="goal">raised out of ₹1,50,000</div>
-          
-          <div class="progress-bar-container">
-              <div class="progress-bar" style="width: 66%;"></div>  Adjust width dynamically as needed -->
-          <!-- </div>
-      
-          
-      
-          <div class="buttons"> -->
-              <!-- <button class="share-btn">Share</button> -->
-              <!-- <a href="https://wa.me/?text=I%20just%20donated%20to%20a%20great%20cause%20on%20this%20platform.%20Join%20me%20in%20making%20a%20difference!%20Visit%20now%20%3A%20https%3A%2F%2Faesthetic-kringle-2d74a9.netlify.app%2F"
-              target="_blank" class="share-btn">
-               Share
-              </a>
-              <button class="donate-btn"> <a href="Donation.html" style="color: #fbfafa; text-decoration: none;">Donate </a> </button>
-          </div>
-      </div>
-        </div>
-       Font Awesome for icons -->
-      <!-- <script src="https://kit.fontawesome.com/a076d05399.js"></script> --> 
-      
-       
-      <!-- feature sect  -->
-    <!-- newww -->
+             
+      <!-- feature section  -->
   <div class="cont">
     <section>
       <div class="row">
@@ -535,7 +460,6 @@ function carousel() {
               <i class="fa-solid fa-search"></i>
             </div>
             <h3 class="sc"> <a href="bodysearch.html"  style="color: whitesmoke;text-decoration: none;background-color: rgb(88, 69, 30);border: 2px solid  rgb(88, 69, 30); border-radius: 5px; ">Search Dead Bodies</a></h3>
-            <!-- <p>Find unclaimed bodies by searching our records.</p>  -->
         </div>
         </div> 
       
@@ -546,9 +470,9 @@ function carousel() {
               <i class="fa-solid fa-hands-helping"></i>
             </div>
             <h3 class="sc"> <a href="vol-login.html" class="sc" style="color: whitesmoke;text-decoration: none;background-color: rgb(88, 69, 30);border: 2px solid  rgb(88, 69, 30); border-radius: 5px; "> Volunteer Login</a><br><br></h3>
-            <!-- <p>Join us as a volunteer to help in burial processes.</p> -->
           </div>
         </div>
+
         <!-- Feature 3: Donate -->
         <div class="column">
           <div class="card">
@@ -556,9 +480,9 @@ function carousel() {
               <i class="fa-solid fa-donate"></i>
             </div>
             <h3 class="sc"> <a href="Donation.html" class="sc" style="color: whitesmoke;text-decoration: none;background-color: rgb(88, 69, 30);border: 2px solid  rgb(88, 69, 30); border-radius: 5px; "> Donate here </a><br><br></h3>
-            <!-- <p>Contribute to help us provide proper burials.</p> -->
-          </div>
+            </div>
         </div>
+
         <!-- Feature 4: NGO Body Burial Form -->
         <div class="column">
           <div class="card">
@@ -566,9 +490,9 @@ function carousel() {
               <i class="fa-solid fa-file-signature"></i>
             </div>
             <h3 class="sc"><a href="burialform.html" style="color: whitesmoke;text-decoration: none;background-color: rgb(88, 69, 30);border: 2px solid  rgb(88, 69, 30); border-radius: 5px; " > NGO Body Burial Form</a><br></h3>
-            <!-- <p>Submit forms</p> -->
           </div>
         </div>
+
         <!-- Feature 5: Pending Approval Requests Status -->
         <div class="column">
           <div class="card">
@@ -576,13 +500,10 @@ function carousel() {
               <i class="fa-solid fa-hourglass-half"></i>
             </div>
             <h3 class="sc"><a href="pendingstatus.html"  style="color: whitesmoke;text-decoration: none;background-color: rgb(88, 69, 30);border: 2px solid  rgb(88, 69, 30); border-radius: 5px;  ">Pending Approval Status</a></h3>
-            <!-- <p>Check the status</p> -->
           </div>
         </div>
       </div>
     </section>
   </div>
-
-  
 </body>
 </html>

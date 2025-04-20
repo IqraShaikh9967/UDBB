@@ -47,16 +47,10 @@
             margin: 10px 0;
             transition: background-color 0.3s ease;
         }
-
         .donation-section a:hover {
             background-color: #9c7c4d;
         }
 
-        .donation-message {
-            margin-top: 15px;
-            color: #b08d57; /* Gold color */
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
@@ -64,27 +58,13 @@
     <div class="donation-section">
         <h2>Support Our Cause</h2>
         <p>Click the button below to donate via Google Pay:</p>
-        
         <a href="upi://pay?pa=9768775673@axl&pn=Irfan&am=500&cu=INR&tn=Donation" target="_blank">
             Donate ₹500 via Google Pay
         </a>
-        
         <a href="upi://pay?pa=9768775673@axl&pn=Irfan&cu=INR&tn=Donation" target="_blank">
             Donate Custom Amount via Google Pay
-        </a>
-
-        <p>After completing the payment, click the button below to confirm:</p>
-        <button onclick="confirmDonation()">I Have Donated</button>
-        
-        <div class="donation-message" id="donationMessage"></div>
+        </a><br><br>
+        <i style="font-size: large; font-weight:300; color: #9c7c4d; ">Your generosity can be the spark that restores humanity. Donate today and help us lay unclaimed souls to rest with respect.</i>
     </div>
-
-    <script>
-        function confirmDonation() {
-            const messageDiv = document.getElementById('donationMessage');
-            messageDiv.innerText = `Thank you for your donation! Your generosity is appreciated.`;
-        }
-    </script>
-
 </body>
 </html>

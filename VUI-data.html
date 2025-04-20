@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>add btn</title>
+    <title>Volunteer data edit</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -78,7 +78,7 @@
 <body>
 
     <div class="container">
-        <h2>Unclaimed Bodies Search</h2>
+        <h2>Unclaimed Bodies Data Edit</h2>
 
         <input type="text" id="searchCity" placeholder="Search by City..." onkeyup="filterTable()">
         
@@ -142,7 +142,7 @@
                         <td>${record.policeStation}</td>
                         <td>${record.caseNoLaw}</td>
                         <td>
-                            <button onclick="editRecord(${index})">Edit</button>
+                            <button onclick="editRecord(${index})">Edit</button> <br> <br>
                             <button onclick="deleteRecord(${index})">Delete</button>
                         </td>
                     `;
@@ -228,6 +228,3 @@
 
 </body>
 </html>
-
-
-<!-- //importantttt -->

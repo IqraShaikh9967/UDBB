@@ -3,73 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Carousel</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Claimed Bodies Data</title>
     <style>
-        .carousel-item img {
-            width: 100%;
-            height: 500px; /* Adjust height as needed */
-            object-fit: contain; /* Ensures the full image is visible */
-        }
-
-        .donation-box {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 20px;
+       
+        body {
+            font-family: Arial, sans-serif;
             text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 0;
+            background-color: rgb(238, 233, 222);
         }
 
-        .progress {
-            height: 10px;
-            background-color: #ddd;
+        .container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 1200px;
+            margin: 1rem auto;
+            padding: 1rem;
+            box-sizing: border-box;
+            overflow-x: auto;
         }
 
-        .progress-bar {
-            background-color: #5a4000;
+        .search-bar {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 0.5rem;
+            background-color: #fff;
         }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 0.5rem;
+            font-size: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgb(88, 69, 30);
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+
     </style>
 </head>
 <body>
+    <div class="container">
+        <h2>Claimed Bodies Data Edit</h2>
+       
+            <input type="text" id="search" placeholder="Search by Name..." onkeyup="searchTable()">
 
-<!-- Carousel -->
-<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="500">
-            <img src="christian gy.jpeg" class="d-block w-100" alt="Image 1">
-        </div>
-        <div class="carousel-item" data-bs-interval="500">
-            <img src="muslims gy.jpeg" class="d-block w-100" alt="Image 2">
-        </div>
-        <div class="carousel-item" data-bs-interval="500">
-            <img src="hindu gy 2.jpg" class="d-block w-100" alt="Image 3">
-        </div>
+            <button class="hidden">Add New Record</button>
+     
+        <table id="recordsTable">
+            <thead>
+                <tr>
+                    <th>Sr. <br> No.</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Date of Death</th>
+                    <th>Gender</th>
+                    <th>Area</th>
+                    <th>NGO Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Data Rows Here -->
+            </tbody>
+        </table>
     </div>
 
-    <!-- Donation Box -->
-    <div class="donation-box">
-        <h3>₹87,350</h3>
-        <p>Raised out of ₹1,50,000</p>
-        <div class="progress">
-            <div class="progress-bar" style="width: 58%;"></div>
-        </div>
-        <button class="btn btn-outline-dark mt-3">Share</button>
-        <button class="btn btn-dark mt-3">Donate</button>
-    </div>
 
-    <!-- Controls -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </button>
-</div>
+<script>
+       // Load data from localStorage or use default dataset
+       let data = [
+    {sr: 1, img: "https://c8.alamy.com/zooms/9/f861ec43ab9e41978cb265336d145590/pnfthf.jpg", name: "Punit", age: 62, date: "2022-10-18", gender: "Male", area:"Govandi East", ngo: "Janseva Old Age Home"},
+    {sr: 2, img: "	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkZG8yvvge9l1uhSInM9fUdSyMLFqK4MY2pUDXF7IhBl-blC3tPSzd7--6qJQnZ1L1an8&usqp=CAU", name: "Romila", age: 43, date: "2019-02-28", gender: "Female", area: "Vasai west", ngo: "Sahas Charitable Trust"},
+    {sr: 3, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXEmIOBBRsJIBmM-_Nphvmq941ixviC-XDcDZOStlJajbCbZzikj9BkjO-L-xZuW67Dvk&usqp=CAU", name: "Advika", age: 39, date: "2021-05-07", gender: "Female", area:"Dadar East", ngo: "ACT Foundation"},
+    {sr: 4, img: "https://pbs.twimg.com/media/FzPqoElaEAAULBS?format=jpg&name=medium", name: "Indira", age: 35, date: "2020-01-05", gender: "Female", area:"Bandra East", ngo: "Muskan Foundation"},
+    {sr: 5, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCtQ7MOHTubCWPODGNdGu_paqji5DUjlyM3sMxFpQxFo_HfFynig5lKW79rVRXugsf_0Q&usqp=CAU", name: "Suresh", age: 54, date: "2022-10-18", gender: "Male", area:"Thane", ngo: "Aamcha ghar"},
+    {sr: 6, img: "https://pbs.twimg.com/media/GbNwS5GXIAAmfvA.jpg", name: "Kashvi", age: 45, date: "2018-07-21", gender: "Female", area:"Ghatkopar west", ngo: "Adarsh charitable trust"},
+    {sr: 7, img: "https://i0.wp.com/www.featureshoot.com/wp-content/uploads/2017/02/13.sleeping-beauty_de-mayda_indra-kumar-jha_varanasi.jpg?resize=620%2C438&ssl=1", name: "Chiranjeev", age: 71, date: "2020-06-13", gender: "Male", area:"Panvel", ngo: "Shree Radhe Krishna Sanatan Dharm Foundation"},
+    {sr: 8, img: "https://media.elbalad.news/2024/10/large/980/2/181.jpg", name: "Zoya", age: 32, date: "2023-11-16", gender: "Female", area:"Andheri East", ngo: "Mauli foundation"},
+    {sr: 9, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgqydeCYN_fQysI5aTG_9kHt0ZnsMMPvLUUE5mnh092MJwzCEcoBPb3PqmwaDpN5GKmMI&usqp=CAU", name: "Saumya", age: 38, date: "2024-12-01", gender: "Female", area:"Thane west", ngo: "Aarna foundation"},
+    {sr: 10, img: "https://pbs.twimg.com/media/Fxe3Q37WwAIohNy.jpg", name: "Ujjwala", age: 43, date: "2021-07-02", gender: "Female", area:"Khargar", ngo: "Girija welfare association"},
+    {sr: 11, img: "https://pbs.twimg.com/media/GNhPweXWUAAdYJC.jpg", name: "Punit", age: 56, date: "2022-10-18", gender: "Female", area:"Govandi East", ngo: "Janseva Old Age Home"},
+    {sr: 12, img: "https://images.bhaskarassets.com/webp/thumb/360x0/web2images/521/2022/06/26/371f6686-1ad3-40fc-8979-46637f8e67ad_1656211626384.jpg", name: "Punit", age: 56, date: "2022-10-18", gender: "Female", area:"Govandi East", ngo: "Janseva Old Age Home"},
+    {sr: 13, img: "https://assets.change.org/photos/4/an/wn/yIAnWNTzbPIAuTL-800x450-noPad.jpg?1556176667", name: "Punit", age: 56, date: "2022-10-18", gender: "Female", area:"Govandi East", ngo: "Janseva Old Age Home"},
+    {sr: 14, img: "https://i0.wp.com/www.featureshoot.com/wp-content/uploads/2017/02/6.sleeping-beauty_de-mayda_indra-kumar-jha_varanasi_k.jpg?fit=620%2C438&ssl=1", name: "Punit", age: 56, date: "2022-10-18", gender: "Female", area:"Govandi East", ngo: "Janseva Old Age Home"},
+    {sr: 15, img: "https://swatigoelsharma.com/wp-content/uploads/2021/12/h2.jpg", name: "Punit", age: 56, date: "2022-10-18", gender: "Female", area:"Govandi East", ngo: "Janseva Old Age Home"},
+    {sr: 16, img: "https://assets.change.org/photos/4/an/wn/yIAnWNTzbPIAuTL-800x450-noPad.jpg?1556176667", name: "Punit", age: 56, date: "2022-10-18", gender: "Female", area:"Govandi East", ngo: "Janseva Old Age Home"},
+];
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+function saveToLocalStorage() {
+    localStorage.setItem("claimedBodiesData", JSON.stringify(data));
+}
+
+function loadTable() {
+    let tableBody = document.getElementById("tableBody");
+    tableBody.innerHTML = "";
+    data.forEach((item, index) => {
+        let row = `<tr>
+            <td>${item.sr}</td>
+            <td><img src="${item.img}" alt="Image"></td>
+            <td>${item.name}</td>
+            <td>${item.age}</td>
+            <td>${item.date}</td>
+            <td>${item.gender}</td>
+            <td>${item.area}</td>
+            <td>${item.ngo}</td>
+            <td>
+                <button onclick="editRecord(${index})">Edit</button> <br> <br>
+                <button onclick="deleteRecord(${index})">Delete</button>
+            </td>
+        </tr>`;
+        tableBody.innerHTML += row;
+    });
+}
+
+function editRecord(index) {
+    let newName = prompt("Enter new name:", data[index].name);
+    if (newName !== null) {
+        data[index].name = newName;
+        saveToLocalStorage(); // Save updated data
+        loadTable();
+    }
+}
+
+function deleteRecord(index) {
+    if (confirm("Are you sure you want to delete this record?")) {
+        data.splice(index, 1);
+        saveToLocalStorage(); // Save after deletion
+        loadTable();
+    }
+}
+
+function searchTable() {
+    let input = document.getElementById("search").value.toLowerCase();
+    let tableBody = document.getElementById("tableBody");
+    let rows = tableBody.getElementsByTagName("tr");
+
+    for (let row of rows) {
+        let nameCell = row.getElementsByTagName("td")[2]; // 3rd column (index 2) is 'Name'
+        if (nameCell) {
+            let nameText = nameCell.textContent.toLowerCase();
+            row.style.display = nameText.includes(input) ? "" : "none";
+        }
+    }
+}
+
+
+// Load data on page load
+window.onload = loadTable;
+
+    </script>
+
 </body>
 </html>
